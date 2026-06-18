@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JARVIS · Tesla auth</title>
+<style>
+ body{font-family:-apple-system,system-ui,sans-serif;background:#0b0b0c;color:#eee;margin:0;
+   display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px}
+ .card{max-width:680px;width:100%;background:#161618;border:1px solid #2a2a2e;border-radius:16px;padding:28px}
+ h1{font-size:18px;margin:0 0 4px} .sub{color:#9a9aa2;font-size:13px;margin-bottom:18px}
+ code{display:block;background:#0b0b0c;border:1px solid #2a2a2e;border-radius:10px;padding:14px;
+   word-break:break-all;font-size:14px;color:#7dd3fc}
+ button{margin-top:14px;background:#2563eb;color:#fff;border:0;border-radius:10px;padding:11px 16px;
+   font-size:15px;cursor:pointer} button:active{transform:scale(.98)} .ok{color:#34d399}
+ .err{color:#f87171}
+</style></head><body><div class="card">
+ <h1>JARVIS · Tesla authorization</h1>
+ <div class="sub">Copy the code below and paste it back to JARVIS.</div>
+ <code id="out">Reading…</code>
+ <button id="copy" style="display:none">Copy code</button>
+ <div id="msg" class="sub" style="margin-top:12px"></div>
+<script>
+ var p=new URLSearchParams(location.search), code=p.get("code"), err=p.get("error");
+ var out=document.getElementById("out"), btn=document.getElementById("copy"), msg=document.getElementById("msg");
+ if(code){out.textContent=code; btn.style.display="inline-block";
+   btn.onclick=function(){navigator.clipboard.writeText(code).then(function(){msg.innerHTML='<span class="ok">Copied ✓ — paste it to JARVIS.</span>'})};}
+ else if(err){out.textContent=err; out.className="err"; msg.textContent=p.get("error_description")||"";}
+ else{out.textContent="No code in URL. Re-open the authorize link from JARVIS.";}
+</script></div></body></html>
